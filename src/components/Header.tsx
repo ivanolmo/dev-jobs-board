@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Switch from "@mui/material/Switch";
 
 const Header = () => {
   return (
@@ -10,14 +11,14 @@ const Header = () => {
           height={32}
           alt="devjobs logo"
         />
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <Image
             src="/icons/icon-sun.svg"
             width={20}
             height={20}
             alt="Light mode icon"
           />
-          <span>-SLIDER-</span> {/* temp */}
+          <Switch size="medium" />
           <Image
             src="/icons/icon-moon.svg"
             width={16}
