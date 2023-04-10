@@ -3,24 +3,60 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model Job {
-  id           String   @id @unique @default(cuid())
-  company      String   @db.VarChar(50)
-  logoUrl      String?  @db.VarChar(100)
-  location     String   @db.VarChar(50)
-  jobType      String   @db.VarChar(50)
-  applyUrl     String   @db.VarChar(100)
-  description  String   @db.VarChar(1000)
-  jobTitle     String   @db.VarChar(50)
-  companyUrl   String   @db.VarChar(100)
-  logoBgColor  String?  @db.VarChar(20)
-  createdAt    DateTime @default(now())
-  duties       Json
-  requirements Json
-  salary       String   @db.VarChar(50)
+  id            Int          @id @unique @default(autoincrement())
+  company       String
+  companyUrl    String 
+  applyUrl      String 
+  logoUrl       String?
+  logoBgColor   String?
+  jobTitle      String
+  jobType       String
+  location      String
+  description   String
+  salary        String
+  requirementId Int          @unique
+  requirements  Requirements @relation(fields: [requirementId], references: [id])
+  dutyId        Int          @unique
+  duties        Duties       @relation(fields: [dutyId], references: [id])
+  createdAt     DateTime?    @default(now())
+}
+
+model Requirements {
+  id      Int                @id @unique @default(autoincrement())
+  content String
+  items   RequirementsItem[]
+  job     Job? 
+  jobId   Int?
+}
+
+model RequirementsItem {
+  id            Int          @id @unique @default(autoincrement())
+  item          String 
+  requirementId Int
+  requirement   Requirements @relation(fields: [requirementId], references: [id])
+
+  @@index([requirementId])
+}
+
+model Duties {
+  id      Int          @id @unique @default(autoincrement())
+  content String
+  items   DutiesItem[]
+  job     Job?
+  jobId   Int?
+}
+
+model DutiesItem {
+  id     Int    @id @unique @default(autoincrement())
+  item   String
+  dutyId Int
+  duty   Duties @relation(fields: [dutyId], references: [id])
+
+  @@index([dutyId])
 }
