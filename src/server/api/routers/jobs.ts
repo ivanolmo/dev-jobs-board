@@ -1,25 +1,26 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const jobSchema = z.object({
-  company: z.string().max(50),
-  companyUrl: z.string().max(100),
-  applyUrl: z.string().max(100),
-  logoUrl: z.string().max(100).optional(),
-  logoBgColor: z.string().max(20).optional(),
-  jobTitle: z.string().max(50),
-  jobType: z.string().max(50),
-  location: z.string().max(50),
-  description: z.string().max(1000),
-  salary: z.string().max(50),
+  company: z.string(),
+  companyUrl: z.string(),
+  applyUrl: z.string(),
+  logoUrl: z.string().optional(),
+  logoBgColor: z.string().optional(),
+  jobTitle: z.string(),
+  jobType: z.string(),
+  location: z.string(),
+  description: z.string(),
+  salary: z.string(),
   requirements: z.object({
-    content: z.string().max(500),
-    items: z.array(z.string().max(100)),
+    content: z.string(),
+    items: z.array(z.string()),
   }),
   duties: z.object({
-    content: z.string().max(500),
-    items: z.array(z.string().max(100)),
+    content: z.string(),
+    items: z.array(z.string()),
   }),
   createdAt: z.date().optional(),
 });
@@ -28,12 +29,42 @@ export const jobRouter = createTRPCRouter({
   createJob: publicProcedure
     .input(jobSchema)
     .mutation(async ({ ctx, input }) => {
+      const { requirements, duties, createdAt, ...rest } = input;
+
       const job = await ctx.prisma.job.create({
         data: {
-          ...input,
-          createdAt: new Date(),
+          ...rest,
+          createdAt: createdAt ? new Date(createdAt) : new Date(),
+          requirements: {
+            create: {
+              content: requirements.content,
+              items: {
+                create: requirements.items.map((item) => ({
+                  item: item,
+                })),
+              },
+            },
+          },
+          duties: {
+            create: {
+              content: duties.content,
+              items: {
+                create: duties.items.map((item) => ({
+                  item: item,
+                })),
+              },
+            },
+          },
         },
       });
+
+      // check for errors
+      if (!job) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+        });
+      }
 
       return job;
     }),
