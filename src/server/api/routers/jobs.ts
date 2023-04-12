@@ -58,11 +58,10 @@ export const jobRouter = createTRPCRouter({
         },
       });
 
-      // check for errors
       if (!job) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Something went wrong",
+          message: "Error creating job",
         });
       }
 
@@ -74,4 +73,34 @@ export const jobRouter = createTRPCRouter({
 
     return jobs;
   }),
+
+  getJobById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const job = await ctx.prisma.job.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          requirements: {
+            include: {
+              items: true,
+            },
+          },
+          duties: {
+            include: {
+              items: true,
+            },
+          },
+        },
+      });
+
+      if (!job)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Job not found",
+        });
+
+      return job;
+    }),
 });
