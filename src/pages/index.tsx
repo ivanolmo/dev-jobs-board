@@ -21,8 +21,8 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <main className="flex min-h-screen flex-col items-center bg-light-gray pt-24">
+      <Header withSearchBar />
+      <main className="flex min-h-screen flex-col items-center pt-24">
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error</p>}
         <div className="space-y-14">

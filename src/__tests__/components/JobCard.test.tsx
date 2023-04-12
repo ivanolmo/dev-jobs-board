@@ -10,7 +10,7 @@ dayjs.extend(relativeTime);
 
 // Example Job data for testing
 const mockJob: Job = {
-  id: 1,
+  id: "1",
   company: "Test Company",
   companyUrl: "https://test-company.com",
   applyUrl: "https://test-company.com/apply",
@@ -21,8 +21,8 @@ const mockJob: Job = {
   location: "New York, NY",
   description: "Lorem ipsum dolor sit amet...",
   salary: "100000",
-  requirementId: 1,
-  dutyId: 1,
+  requirementId: "1",
+  dutyId: "1",
   createdAt: new Date("2023-04-01T00:00:00Z"),
 };
 
