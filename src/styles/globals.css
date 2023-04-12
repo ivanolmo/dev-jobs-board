@@ -12,3 +12,7 @@
     font-display: swap;
   }
 }
+
+body {
+  @apply min-w-[375px] overflow-x-auto bg-light-gray;
+}
