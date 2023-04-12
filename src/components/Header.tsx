@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Switch from "@mui/material/Switch";
 
-const Header = () => {
+type HeaderWithProps = {
+  withSearchBar?: boolean;
+};
+
+const Header = (props: HeaderWithProps) => {
   return (
-    <header className="sticky h-[8.5rem] bg-violet bg-header-mobile bg-left-top">
+    <header className="sticky h-[8.5rem] bg-violet bg-header-mobile bg-cover bg-center">
       <div className="flex items-center justify-between px-6 py-8">
         <Image
           src="/icons/logo.svg"
@@ -27,13 +31,15 @@ const Header = () => {
           />
         </div>
       </div>
-      <div className="px-6">
-        <input
-          type="text"
-          placeholder="Filter by title..."
-          className="h-20 w-full rounded-md py-4 pl-6 pr-4 text-body text-black shadow-lg"
-        />
-      </div>
+      {props.withSearchBar && (
+        <div className="px-6">
+          <input
+            type="text"
+            placeholder="Filter by title..."
+            className="h-20 w-full rounded-md py-4 pl-6 pr-4 text-body text-black shadow-lg"
+          />
+        </div>
+      )}
     </header>
   );
 };
