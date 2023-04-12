@@ -3,16 +3,16 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model Job {
-  id            Int          @id @unique @default(autoincrement())
+  id            String       @id @default(uuid())
   company       String
-  companyUrl    String 
-  applyUrl      String 
+  companyUrl    String
+  applyUrl      String
   logoUrl       String?
   logoBgColor   String?
   jobTitle      String
@@ -20,32 +20,32 @@ model Job {
   location      String
   description   String
   salary        String
-  requirementId Int          @unique
+  requirementId String       @unique
   requirements  Requirements @relation(fields: [requirementId], references: [id])
-  dutyId        Int          @unique
+  dutyId        String       @unique
   duties        Duties       @relation(fields: [dutyId], references: [id])
   createdAt     DateTime?    @default(now())
 }
 
 model Requirements {
-  id      Int                @id @unique @default(autoincrement())
+  id      String             @id @default(uuid())
   content String
   items   RequirementsItem[]
-  job     Job? 
+  job     Job?
   jobId   Int?
 }
 
 model RequirementsItem {
-  id            Int          @id @unique @default(autoincrement())
-  item          String 
-  requirementId Int
-  requirement   Requirements @relation(fields: [requirementId], references: [id])
+  id            String       @id @default(uuid())
+  item          String
+  requirement_id String
+  requirement   Requirements @relation(fields: [requirement_id], references: [id])
 
-  @@index([requirementId])
+  @@index([requirement_id])
 }
 
 model Duties {
-  id      Int          @id @unique @default(autoincrement())
+  id      String       @id @default(uuid())
   content String
   items   DutiesItem[]
   job     Job?
@@ -53,10 +53,10 @@ model Duties {
 }
 
 model DutiesItem {
-  id     Int    @id @unique @default(autoincrement())
+  id     String @id @default(uuid())
   item   String
-  dutyId Int
-  duty   Duties @relation(fields: [dutyId], references: [id])
+  duty_id String
+  duty   Duties @relation(fields: [duty_id], references: [id])
 
-  @@index([dutyId])
+  @@index([duty_id])
 }
