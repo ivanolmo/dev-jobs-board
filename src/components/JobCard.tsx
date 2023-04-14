@@ -29,7 +29,7 @@ const JobCard = (props: Job) => {
   return (
     <div>
       <Link href={`/job/${id}`}>
-        <div className="relative flex flex-col rounded-md bg-white px-6 pb-8 pt-12 shadow-sm">
+        <div className="relative flex flex-col rounded-md bg-white px-6 pb-8 pt-12 shadow-sm dark:bg-very-dark-blue">
           <div
             className="absolute -top-7 left-8 flex h-14 w-14 place-items-center rounded-2xl px-2.5"
             style={bgColorStyle}
@@ -42,15 +42,19 @@ const JobCard = (props: Job) => {
               alt={`${company}'s logo`}
             />
           </div>
-          <div className="flex flex-col gap-4 text-gray">
+          <div className="flex flex-col gap-4 text-dark-gray dark:text-gray">
             <div className="flex items-center gap-2">
               <span>{timeFromNow}</span>•<span>{jobType}</span>
             </div>
-            <span className="text-md font-bold text-black">{jobTitle}</span>
+            <span className="text-md font-bold text-black dark:text-white">
+              {jobTitle}
+            </span>
             <span>{company}</span>
           </div>
           <div className="mt-11">
-            <span className="text-sm font-bold text-violet">{location}</span>
+            <span className="text-sm font-bold text-violet dark:text-light-violet">
+              {location}
+            </span>
           </div>
         </div>
       </Link>
