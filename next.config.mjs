@@ -19,7 +19,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["loremflickr.com"],
+    domains: ["loremflickr.com", "placehold.co"],
   },
   typescript: {
     ignoreBuildErrors: true,
