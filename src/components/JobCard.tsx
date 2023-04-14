@@ -5,7 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import type { RouterOutputs } from "~/utils/api";
 
-type Job = RouterOutputs["job"]["getJobs"][number];
+type Job = RouterOutputs["job"]["getJobs"]["jobs"][number];
 dayjs.extend(relativeTime);
 
 const JobCard = (props: Job) => {
@@ -35,7 +35,12 @@ const JobCard = (props: Job) => {
             style={bgColorStyle}
           >
             {/* TODO: needs a default logo */}
-            <Image src={logoUrl ?? ""} width={64} height={64} alt="logo" />
+            <Image
+              src={logoUrl ?? "https://placehold.co/100"}
+              width={64}
+              height={64}
+              alt={`${company}'s logo`}
+            />
           </div>
           <div className="flex flex-col gap-4 text-gray">
             <div className="flex items-center gap-2">

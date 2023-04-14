@@ -18,6 +18,9 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["loremflickr.com"],
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

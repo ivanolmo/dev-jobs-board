@@ -32,7 +32,6 @@ model Requirements {
   content String
   items   RequirementsItem[]
   job     Job?
-  jobId   Int?
 }
 
 model RequirementsItem {
@@ -49,7 +48,6 @@ model Duties {
   content String
   items   DutiesItem[]
   job     Job?
-  jobId   Int?
 }
 
 model DutiesItem {
