@@ -7,8 +7,8 @@ type HeaderWithProps = {
 
 const Header = (props: HeaderWithProps) => {
   return (
-    <header className="sticky h-[8.5rem] bg-violet bg-header-mobile bg-cover bg-center">
-      <div className="flex items-center justify-between px-6 py-8">
+    <header className="relative bg-violet bg-header-mobile bg-cover bg-center pb-20 pt-8">
+      <div className="flex items-center justify-between px-6">
         <Image
           src="/icons/logo.svg"
           width={116}
@@ -32,7 +32,7 @@ const Header = (props: HeaderWithProps) => {
         </div>
       </div>
       {props.withSearchBar && (
-        <div className="px-6">
+        <div className="absolute -bottom-10 w-full px-6">
           <input
             type="text"
             placeholder="Filter by title..."

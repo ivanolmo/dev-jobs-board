@@ -5,7 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import type { RouterOutputs } from "~/utils/api";
 
-type Job = RouterOutputs["job"]["getJobs"][number];
+type Job = RouterOutputs["job"]["getJobs"]["jobs"][number];
 dayjs.extend(relativeTime);
 
 const JobCard = (props: Job) => {

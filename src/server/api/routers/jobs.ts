@@ -68,11 +68,36 @@ export const jobRouter = createTRPCRouter({
       return job;
     }),
 
-  getJobs: publicProcedure.query(async ({ ctx }) => {
-    const jobs = await ctx.prisma.job.findMany();
+  getJobs: publicProcedure
+    .input(
+      z.object({
+        cursor: z.string().nullish(),
+        limit: z.number().min(1).max(100).default(10),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { cursor, limit } = input;
 
-    return jobs;
-  }),
+      const jobs = await ctx.prisma.job.findMany({
+        take: limit + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      let nextCursor: typeof cursor | undefined = undefined;
+
+      if (jobs.length > limit) {
+        const nextJob = jobs.pop() as (typeof jobs)[number];
+        nextCursor = nextJob.id;
+      }
+
+      return {
+        jobs,
+        nextCursor,
+      };
+    }),
 
   getJobById: publicProcedure
     .input(z.object({ id: z.string() }))
