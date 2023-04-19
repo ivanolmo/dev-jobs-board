@@ -16,7 +16,7 @@ const ThemeToggle = (props: ThemeToggleProps) => {
       <svg
         aria-label="sun-icon"
         data-testid="sun-icon"
-        className="swap-off h-8 w-8 fill-current"
+        className="swap-off h-8 w-8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -29,7 +29,7 @@ const ThemeToggle = (props: ThemeToggleProps) => {
       <svg
         aria-label="moon-icon"
         data-testid="moon-icon"
-        className="swap-on h-8 w-8 fill-current"
+        className="swap-on h-8 w-8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
