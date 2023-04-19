@@ -34,7 +34,7 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
       <Header />
       <main className="flex min-h-screen flex-col items-center gap-6 px-6 text-dark-gray dark:text-gray">
         {/* card at top */}
-        <section className="relative -mt-4 flex w-full flex-col items-center gap-7 rounded-md bg-white pb-8 pt-12 dark:bg-very-dark-blue">
+        <section className="relative -mt-4 flex w-full flex-col items-center gap-7 rounded-md bg-white pb-8 pt-12 shadow-sm dark:bg-very-dark-blue">
           <div
             className="absolute -top-7 left-1/2 flex h-14 w-14 -translate-x-1/2 transform place-items-center rounded-2xl px-2.5"
             style={bgColorStyle}
@@ -60,7 +60,7 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
           </Link>
         </section>
         {/* long section with rest of job details */}
-        <section className="flex w-full flex-col gap-12 rounded-md bg-white px-6 py-10 text-body dark:bg-very-dark-blue">
+        <section className="flex w-full flex-col gap-12 rounded-md bg-white px-6 py-10 text-body shadow-sm dark:bg-very-dark-blue">
           {/* time, title, location */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
