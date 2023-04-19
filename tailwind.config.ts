@@ -2,6 +2,7 @@ import { type Config } from "tailwindcss";
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     backgroundImage: {
       "header-mobile": "url('/images/mobile/bg-pattern-header.svg')",
@@ -11,6 +12,7 @@ export default {
     boxShadow: {
       sm: "0 2px 4px 0 rgba(11, 10, 55, 0.15)",
       lg: "0 8px 20px 0 rgba(18, 16, 99, 0.06)",
+      dark: "0 2px 4px 0 rgba(255, 255, 255, 0.1)",
     },
     colors: {
       transparent: "transparent",
@@ -42,5 +44,5 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 } satisfies Config;

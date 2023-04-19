@@ -14,5 +14,5 @@
 }
 
 body {
-  @apply min-w-[375px] overflow-x-auto bg-light-gray;
+  @apply min-w-[375px] overflow-x-auto bg-light-gray transition-colors duration-300 dark:bg-midnight;
 }

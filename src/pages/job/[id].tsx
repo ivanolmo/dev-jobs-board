@@ -32,9 +32,9 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
         <title>{`Job @ ${job.company}`}</title>
       </Head>
       <Header />
-      <main className="flex min-h-screen flex-col items-center gap-6 px-6">
+      <main className="flex min-h-screen flex-col items-center gap-6 px-6 text-dark-gray dark:text-gray">
         {/* card at top */}
-        <section className="relative -mt-4 flex w-full flex-col items-center gap-7 rounded-md bg-white pb-8 pt-12">
+        <section className="relative -mt-4 flex w-full flex-col items-center gap-7 rounded-md bg-white pb-8 pt-12 shadow-sm dark:bg-very-dark-blue">
           <div
             className="absolute -top-7 left-1/2 flex h-14 w-14 -translate-x-1/2 transform place-items-center rounded-2xl px-2.5"
             style={bgColorStyle}
@@ -48,24 +48,28 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
             />
           </div>
           <div className="flex flex-col items-center gap-2">
-            <h1 className="text-md font-bold">{job.company}</h1>
-            <span className="text-body text-dark-gray">{`${job.company.toLowerCase()}.com`}</span>
+            <h1 className="text-md font-bold text-black dark:text-white">
+              {job.company}
+            </h1>
+            <span className="text-body">{`${job.companyUrl.toLowerCase()}.com`}</span>
           </div>
           <Link href={job.companyUrl}>
-            <button className="rounded-md bg-light-gray px-5 py-4 font-bold text-violet">
+            <button className="rounded-md bg-light-gray px-5 py-4 font-bold text-violet dark:bg-violet/10 dark:text-light-violet">
               Company Site
             </button>
           </Link>
         </section>
         {/* long section with rest of job details */}
-        <section className="flex w-full flex-col gap-12 rounded-md bg-white px-6 py-10 text-body text-dark-gray">
+        <section className="flex w-full flex-col gap-12 rounded-md bg-white px-6 py-10 text-body shadow-sm dark:bg-very-dark-blue">
           {/* time, title, location */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
               <span className="">{timeFromNow}</span>•<span>{job.jobType}</span>
             </div>
-            <span className="text-md font-bold text-black">{job.jobTitle}</span>
-            <span className="text-sm font-bold text-violet">
+            <span className="text-md font-bold text-black dark:text-white">
+              {job.jobTitle}
+            </span>
+            <span className="text-sm font-bold text-violet dark:text-light-violet">
               {job.location}
             </span>
           </div>
@@ -80,7 +84,9 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
           </div>
           {/* requirements */}
           <div className="space-y-8">
-            <h2 className="text-md font-bold text-black">Requirements</h2>
+            <h2 className="text-md font-bold text-black dark:text-white">
+              Requirements
+            </h2>
             <p>{job.requirements.content}</p>
             <ul className="list-outside list-disc pl-4">
               {job.requirements.items.map((item) => (
@@ -90,7 +96,9 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
           </div>
           {/* duties */}
           <div className="space-y-8">
-            <h2 className="text-md font-bold text-black">What You Will Do</h2>
+            <h2 className="text-md font-bold text-black dark:text-white">
+              What You Will Do
+            </h2>
             <p>{job.duties.content}</p>
             <ul className="list-outside">
               {job.duties.items.map((item, index) => (
@@ -106,7 +114,7 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
       {/* spacer */}
       <div className="h-12" />
       {/* apply button at bottom (will have more info on bigger screens) */}
-      <footer className="rounded-t-md bg-white p-6 text-white">
+      <footer className="rounded-t-md bg-white p-6 text-white dark:bg-very-dark-blue">
         <Link href={job.applyUrl}>
           <button className="w-full rounded-md bg-violet px-5 py-4 font-bold text-white">
             Apply Now

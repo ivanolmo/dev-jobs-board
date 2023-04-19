@@ -37,27 +37,36 @@ type QueryResult = {
   id: string;
 };
 
-const generateMockJob = (): JobObject => ({
-  company: faker.company.name(),
-  companyUrl: faker.internet.url(),
-  applyUrl: faker.internet.url(),
-  logoUrl: faker.image.business(100, 100, true),
-  logoBgColor: faker.internet.color(),
-  jobTitle: faker.name.jobTitle(),
-  createdAt: faker.date.recent(90),
-  jobType: faker.helpers.arrayElement(["Full Time", "Part Time", "Contract"]),
-  location: `${faker.address.cityName()}, ${faker.address.country()}`,
-  description: faker.lorem.paragraphs(3),
-  requirements: {
-    content: faker.lorem.paragraph(),
-    items: Array.from({ length: 5 }, () => faker.lorem.sentence()),
-  },
-  duties: {
-    content: faker.lorem.paragraph(),
-    items: Array.from({ length: 5 }, () => faker.lorem.sentence()),
-  },
-  salary: faker.commerce.price(65000, 200000),
-});
+const generateMockJob = (): JobObject => {
+  const companyName = faker.company.name();
+  const companySlug = encodeURIComponent(
+    companyName.replace(/[\s\p{P}]/gu, "").toLowerCase()
+  );
+  const companyUrl = `https://example.com/${companySlug}`;
+  const applyUrl = `${companyUrl}/apply`;
+
+  return {
+    company: companyName,
+    companyUrl,
+    applyUrl,
+    logoUrl: faker.image.business(100, 100, true),
+    logoBgColor: faker.internet.color(),
+    jobTitle: faker.name.jobTitle(),
+    createdAt: faker.date.recent(90),
+    jobType: faker.helpers.arrayElement(["Full Time", "Part Time", "Contract"]),
+    location: `${faker.address.cityName()}, ${faker.address.country()}`,
+    description: faker.lorem.paragraphs(3),
+    requirements: {
+      content: faker.lorem.paragraph(),
+      items: Array.from({ length: 5 }, () => faker.lorem.sentence()),
+    },
+    duties: {
+      content: faker.lorem.paragraph(),
+      items: Array.from({ length: 5 }, () => faker.lorem.sentence()),
+    },
+    salary: faker.commerce.price(65000, 200000),
+  };
+};
 
 const mockJobs: JobObject[] = Array.from({ length: 100 }, () =>
   generateMockJob()
