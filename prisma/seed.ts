@@ -53,7 +53,7 @@ const generateMockJob = (): JobObject => {
     logoBgColor: faker.internet.color(),
     jobTitle: faker.name.jobTitle(),
     createdAt: faker.date.recent(90),
-    jobType: faker.helpers.arrayElement(["Full Time", "Part Time", "Contract"]),
+    jobType: faker.helpers.arrayElement(["f", "p", "c"]),
     location: `${faker.address.cityName()}, ${faker.address.country()}`,
     description: faker.lorem.paragraphs(3),
     requirements: {
