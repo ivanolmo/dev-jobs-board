@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import type { Prisma } from "@prisma/client";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
@@ -73,14 +74,30 @@ export const jobRouter = createTRPCRouter({
       z.object({
         cursor: z.string().nullish(),
         limit: z.number().min(1).max(100).default(10),
+        fullTime: z.boolean().optional(),
+        jobTitle: z.string().optional(),
+        location: z.string().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const { cursor, limit } = input;
+      const { cursor, limit, jobTitle, location, fullTime } = input;
+
+      const whereClause: Prisma.JobWhereInput = {
+        ...(fullTime !== undefined && {
+          jobType: fullTime ? { equals: "f" } : { in: ["f", "p", "c"] },
+        }),
+        ...(jobTitle && {
+          jobTitle: { contains: jobTitle, mode: "insensitive" },
+        }),
+        ...(location && {
+          location: { contains: location, mode: "insensitive" },
+        }),
+      };
 
       const jobs = await ctx.prisma.job.findMany({
         take: limit + 1,
         cursor: cursor ? { id: cursor } : undefined,
+        where: whereClause,
         orderBy: {
           createdAt: "desc",
         },
@@ -128,4 +145,51 @@ export const jobRouter = createTRPCRouter({
 
       return job;
     }),
+
+  // searchJobs: publicProcedure
+  //   .input(
+  //     z.object({
+  //       cursor: z.string().nullish(),
+  //       limit: z.number().min(1).max(100).default(10),
+  //       jobTitle: z.string().optional(),
+  //       location: z.string().optional(),
+  //       fullTime: z.boolean().optional(),
+  //     })
+  //   )
+  //   .query(async ({ ctx, input }) => {
+  //     const { cursor, limit, jobTitle, location, fullTime } = input;
+
+  // const whereClause: Prisma.JobWhereInput = {
+  //   ...(jobTitle && {
+  //     jobTitle: { contains: jobTitle, mode: "insensitive" },
+  //   }),
+  //   ...(location && {
+  //     location: { contains: location, mode: "insensitive" },
+  //   }),
+  //   ...(fullTime !== undefined && {
+  //     jobType: fullTime ? "f" : "p" || "c",
+  //   }),
+  // };
+
+  //     const jobs = await ctx.prisma.job.findMany({
+  //       take: limit + 1,
+  //       cursor: cursor ? { id: cursor } : undefined,
+  //       where: whereClause,
+  //       orderBy: {
+  //         createdAt: "desc",
+  //       },
+  //     });
+
+  //     let nextCursor: typeof cursor | undefined = undefined;
+
+  //     if (jobs.length > limit) {
+  //       const nextJob = jobs.pop() as (typeof jobs)[number];
+  //       nextCursor = nextJob.id;
+  //     }
+
+  //     return {
+  //       jobs,
+  //       nextCursor,
+  //     };
+  //   }),
 });

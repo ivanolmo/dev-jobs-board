@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import type { NextPage } from "next";
 
@@ -9,18 +10,45 @@ import type { RouterOutputs } from "~/utils/api";
 type Job = RouterOutputs["job"]["getJobs"]["jobs"][number];
 
 const Home: NextPage = () => {
-  const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetching } =
-    api.job.getJobs.useInfiniteQuery(
-      {
-        limit: 10,
-      },
-      {
-        refetchOnWindowFocus: false,
-        getNextPageParam: (lastPage) => lastPage.nextCursor,
-      }
-    );
+  const [searchParams, setSearchParams] = useState({
+    fullTime: false,
+    jobTitle: "",
+    location: "",
+  });
+
+  const {
+    data,
+    isLoading,
+    isError,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+    refetch,
+  } = api.job.getJobs.useInfiniteQuery(
+    {
+      ...searchParams,
+      limit: 10,
+    },
+    {
+      refetchOnWindowFocus: false,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    }
+  );
 
   const jobs = data?.pages.flatMap((page) => page.jobs);
+
+  const handleSearch = async (
+    fullTimeFilter: boolean,
+    jobTitleFilter: string,
+    locationFilter: string
+  ) => {
+    setSearchParams({
+      fullTime: fullTimeFilter,
+      jobTitle: jobTitleFilter,
+      location: locationFilter,
+    });
+    await refetch();
+  };
 
   return (
     <>
@@ -32,8 +60,9 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header withSearchBar />
+      <Header withSearchBar onSearch={handleSearch} />
       <main className="flex min-h-screen flex-col items-center px-6 pt-24">
+        {/* TODO - improve loading/error states */}
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error</p>}
         <div className="w-full space-y-14">

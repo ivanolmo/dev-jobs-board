@@ -6,6 +6,13 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import type { RouterOutputs } from "~/utils/api";
 
 type Job = RouterOutputs["job"]["getJobs"]["jobs"][number];
+type JobTypes = {
+  [key: string]: string;
+  f: string;
+  p: string;
+  c: string;
+};
+
 dayjs.extend(relativeTime);
 
 const JobCard = (props: Job) => {
@@ -23,7 +30,13 @@ const JobCard = (props: Job) => {
   const timeFromNow = dayjs(createdAt).fromNow();
 
   const bgColorStyle = {
-    backgroundColor: logoBgColor || "violet",
+    backgroundColor: logoBgColor ?? "violet",
+  };
+
+  const jobTypes: JobTypes = {
+    f: "Full Time",
+    p: "Part Time",
+    c: "Contract",
   };
 
   return (
@@ -44,7 +57,7 @@ const JobCard = (props: Job) => {
           </div>
           <div className="flex flex-col gap-4 text-dark-gray dark:text-gray">
             <div className="flex items-center gap-2">
-              <span>{timeFromNow}</span>•<span>{jobType}</span>
+              <span>{timeFromNow}</span>•<span>{jobTypes[jobType]}</span>
             </div>
             <span className="text-md font-bold text-black dark:text-white">
               {jobTitle}

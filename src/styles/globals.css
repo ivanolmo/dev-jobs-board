@@ -16,3 +16,8 @@
 body {
   @apply min-w-[375px] overflow-x-auto bg-light-gray transition-colors duration-300 dark:bg-midnight;
 }
+
+.checkbox {
+  --bc: 235 69% 61%;
+  --chkfg: 0 0% 100%;
+}
