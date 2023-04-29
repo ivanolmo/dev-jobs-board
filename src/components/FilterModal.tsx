@@ -56,6 +56,7 @@ const FilterModal = (props: FilterModalProps) => {
         <div
           className="mx-6 w-full rounded-md bg-white text-body font-bold text-black dark:bg-very-dark-blue dark:text-white"
           ref={filterModalRef}
+          data-testid="filter-modal"
         >
           <div className="flex h-20 items-center gap-4 border-b border-dark-gray/20 p-6">
             <Image

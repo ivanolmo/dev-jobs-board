@@ -6,9 +6,14 @@ type ThemeToggleProps = {
 
 const ThemeToggle = (props: ThemeToggleProps) => {
   return (
-    <label className="swap-rotate swap">
+    <label
+      className="swap-rotate swap"
+      htmlFor="theme-toggle"
+      data-testid="theme-toggle"
+    >
       <input
         type="checkbox"
+        id="theme-toggle"
         checked={props.checked}
         onChange={props.onChange}
       />

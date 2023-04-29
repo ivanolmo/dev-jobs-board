@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+
 import Header from "~/components/Header";
 
 describe("<Header withSearchBar />", () => {
@@ -10,12 +11,32 @@ describe("<Header withSearchBar />", () => {
     expect(logo).toBeInTheDocument();
 
     // Assert that the theme toggle is present
-    const toggleElement = screen.getByRole("checkbox");
+    const toggleElement = screen.getByTestId("theme-toggle");
     expect(toggleElement).toBeInTheDocument();
 
     // Assert that the filter input is present
     const filterInput = screen.getByPlaceholderText("Filter by title...");
     expect(filterInput).toBeInTheDocument();
+  });
+
+  it("opens and closes the filter modal", async () => {
+    render(<Header withSearchBar />);
+
+    // Open the filter modal
+    const filterButton = screen.getByTestId("filter-button");
+    fireEvent.click(filterButton);
+
+    // Assert that the filter modal is open
+    const filterModal = screen.getByTestId("filter-modal");
+    expect(filterModal).toBeInTheDocument();
+
+    // Close the filter modal by clicking outside of it
+    fireEvent.mouseDown(document, { clientX: 0, clientY: 0 });
+
+    // Assert that the filter modal is closed
+    await waitFor(() => {
+      expect(screen.queryByTestId("filter-modal")).not.toBeInTheDocument();
+    });
   });
 });
 
@@ -28,7 +49,7 @@ describe("<Header />", () => {
     expect(logo).toBeInTheDocument();
 
     // Assert that the theme toggle is present
-    const toggleElement = screen.getByRole("checkbox");
+    const toggleElement = screen.getByTestId("theme-toggle");
     expect(toggleElement).toBeInTheDocument();
 
     // Assert that the filter input is NOT present

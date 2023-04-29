@@ -107,6 +107,7 @@ const Header = (props: HeaderProps) => {
             className="absolute right-28 top-8 tablet:hidden"
             onClick={handleModalVisibility}
             ref={filterButtonRef}
+            data-testid="filter-button"
           >
             <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
               <path
