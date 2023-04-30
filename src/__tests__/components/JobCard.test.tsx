@@ -17,7 +17,7 @@ const mockJob: Job = {
   logoUrl: "https://test-company.com/logo.svg",
   logoBgColor: "blue",
   jobTitle: "Software Engineer",
-  jobType: "Full Time",
+  jobType: "f",
   location: "New York, NY",
   description: "Lorem ipsum dolor sit amet...",
   salary: "100000",

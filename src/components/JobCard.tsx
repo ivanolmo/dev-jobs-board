@@ -40,7 +40,7 @@ const JobCard = (props: Job) => {
   };
 
   return (
-    <div>
+    <div data-testid="job-card">
       <Link href={`/job/${id}`}>
         <div className="relative flex flex-col rounded-md bg-white px-6 pb-8 pt-12 shadow-sm dark:bg-very-dark-blue">
           <div

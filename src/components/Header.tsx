@@ -93,6 +93,7 @@ const Header = (props: HeaderProps) => {
           <button
             className="absolute right-10 top-4 flex h-12 items-center rounded-md bg-violet p-3"
             onClick={() => void handleSearch()}
+            data-testid="search-button"
           >
             <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -107,6 +108,7 @@ const Header = (props: HeaderProps) => {
             className="absolute right-28 top-8 tablet:hidden"
             onClick={handleModalVisibility}
             ref={filterButtonRef}
+            data-testid="filter-button"
           >
             <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
               <path
