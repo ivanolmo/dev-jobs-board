@@ -6,6 +6,7 @@ import Header from "~/components/Header";
 import JobCard from "~/components/JobCard";
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
+import Button from "~/components/Button";
 
 type Job = RouterOutputs["job"]["getJobs"]["jobs"][number];
 
@@ -61,23 +62,23 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header withSearchBar onSearch={handleSearch} />
-      <main className="flex min-h-screen flex-col items-center px-6 pt-24">
+      <main className="grid min-h-screen justify-items-center px-6 pt-24">
         {/* TODO - improve loading/error states */}
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error</p>}
-        <div className="w-full space-y-14">
+        <div className="grid w-full items-start gap-14 tablet:grid-cols-2 tablet:gap-x-3 tablet:gap-y-16">
           {jobs?.map((job: Job) => (
             <JobCard key={job.id} {...job} />
           ))}
         </div>
         {/* TODO - improve text when loading/end of list */}
-        <button
-          className="my-12 w-32 rounded-md bg-violet px-5 py-4 font-bold text-light-gray"
+        <Button
+          className="my-12 w-32 text-light-gray"
           onClick={() => void fetchNextPage()}
           disabled={!hasNextPage || isFetching}
         >
           {isFetching ? "Loading..." : !hasNextPage ? "End" : "Load More"}
-        </button>
+        </Button>
       </main>
     </>
   );

@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Button from "./Button";
+import LocationIcon from "./icons/LocationIcon";
 
 type FilterModalProps = {
   closeModal: () => void;
@@ -59,12 +61,7 @@ const FilterModal = (props: FilterModalProps) => {
           data-testid="filter-modal"
         >
           <div className="flex h-20 items-center gap-4 border-b border-dark-gray/20 p-6">
-            <Image
-              src="/icons/icon-location.svg"
-              width={24}
-              height={24}
-              alt="Search Icon"
-            />
+            <LocationIcon />
             <input
               type="text"
               name="locationFilter"
@@ -74,7 +71,7 @@ const FilterModal = (props: FilterModalProps) => {
             />
           </div>
           <div className="flex flex-col gap-6 p-6">
-            <label htmlFor="fullTime" className="flex gap-4">
+            <label htmlFor="fullTimeFilter" className="flex gap-4">
               <input
                 type="checkbox"
                 name="fullTimeFilter"
@@ -82,14 +79,11 @@ const FilterModal = (props: FilterModalProps) => {
                 className="checkbox"
                 id="fullTime"
               />
-              <span className="">Full Time Only</span>
+              Full Time Only
             </label>
-            <button
-              className="w-full rounded-md bg-violet py-4 text-white"
-              onClick={() => void handleSearch()}
-            >
+            <Button onClick={() => void handleSearch()} fullWidth>
               Search
-            </button>
+            </Button>
           </div>
         </div>
       </div>

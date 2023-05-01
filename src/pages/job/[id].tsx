@@ -8,6 +8,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Header from "~/components/Header";
 import { api } from "~/utils/api";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import Button from "~/components/Button";
 
 dayjs.extend(relativeTime);
 
@@ -53,11 +54,14 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
             </h1>
             <span className="text-body">{`${job.companyUrl.toLowerCase()}.com`}</span>
           </div>
-          <Link href={job.companyUrl}>
-            <button className="rounded-md bg-light-gray px-5 py-4 font-bold text-violet dark:bg-violet/10 dark:text-light-violet">
-              Company Site
-            </button>
-          </Link>
+          <Button
+            className="bg-violet/10 text-violet dark:text-light-violet"
+            asLink
+            href={job.companyUrl}
+            fullWidth
+          >
+            Company Site
+          </Button>
         </section>
         {/* long section with rest of job details */}
         <section className="flex w-full flex-col gap-12 rounded-md bg-white px-6 py-10 text-body shadow-sm dark:bg-very-dark-blue">
@@ -75,11 +79,9 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
           </div>
           {/* apply button and description */}
           <div className="space-y-8">
-            <Link href={job.applyUrl}>
-              <button className="w-full rounded-md bg-violet px-5 py-4 font-bold text-white">
-                Apply Now
-              </button>
-            </Link>
+            <Button asLink href={job.applyUrl} fullWidth>
+              Apply Now
+            </Button>
             <p>{job.description}</p>
           </div>
           {/* requirements */}
@@ -115,11 +117,9 @@ const SingleJobPage: NextPage<{ id: string }> = ({ id }) => {
       <div className="h-12" />
       {/* apply button at bottom (will have more info on bigger screens) */}
       <footer className="rounded-t-md bg-white p-6 text-white dark:bg-very-dark-blue">
-        <Link href={job.applyUrl}>
-          <button className="w-full rounded-md bg-violet px-5 py-4 font-bold text-white">
-            Apply Now
-          </button>
-        </Link>
+        <Button asLink href={job.applyUrl} fullWidth>
+          Apply Now
+        </Button>
       </footer>
     </>
   );
