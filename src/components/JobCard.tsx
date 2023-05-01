@@ -59,13 +59,13 @@ const JobCard = (props: Job) => {
             <div className="flex items-center gap-2">
               <span>{timeFromNow}</span>•<span>{jobTypes[jobType]}</span>
             </div>
-            <span className="text-md font-bold text-black dark:text-white">
+            <span className="line-clamp-1 text-md font-bold text-black dark:text-white">
               {jobTitle}
             </span>
-            <span>{company}</span>
+            <span className="line-clamp-1">{company}</span>
           </div>
           <div className="mt-11">
-            <span className="text-sm font-bold text-violet dark:text-light-violet">
+            <span className="line-clamp-1 text-sm font-bold text-violet dark:text-light-violet">
               {location}
             </span>
           </div>
