@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import Image from "next/image";
-import Button from "./Button";
-import LocationIcon from "./icons/LocationIcon";
+
+import Button from "~/components/Button";
+import LocationIcon from "~/components/icons/LocationIcon";
 
 type FilterModalProps = {
   closeModal: () => void;

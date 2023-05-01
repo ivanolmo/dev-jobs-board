@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 
+import Button from "~/components/Button";
 import FilterModal from "~/components/FilterModal";
 import ThemeSwitch from "~/components/ThemeToggle";
-import Button from "./Button";
-import SearchIcon from "./icons/SearchIcon";
-import FilterIcon from "./icons/FilterIcon";
-import Logo from "./icons/Logo";
+import FilterIcon from "~/components/icons/FilterIcon";
+import Logo from "~/components/icons/Logo";
+import SearchIcon from "~/components/icons/SearchIcon";
 
 type HeaderProps = {
   onSearch?: (

@@ -1,5 +1,5 @@
-import MoonIcon from "./icons/MoonIcon";
-import SunIcon from "./icons/SunIcon";
+import MoonIcon from "~/components/icons/MoonIcon";
+import SunIcon from "~/components/icons/SunIcon";
 
 type ThemeToggleProps = {
   checked: boolean;

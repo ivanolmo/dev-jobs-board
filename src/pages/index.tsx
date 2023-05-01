@@ -2,11 +2,11 @@ import { useState } from "react";
 import Head from "next/head";
 import type { NextPage } from "next";
 
+import Button from "~/components/Button";
 import Header from "~/components/Header";
 import JobCard from "~/components/JobCard";
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
-import Button from "~/components/Button";
 
 type Job = RouterOutputs["job"]["getJobs"]["jobs"][number];
 

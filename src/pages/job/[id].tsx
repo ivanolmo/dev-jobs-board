@@ -1,14 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import type { GetStaticProps, NextPage } from "next";
 
+import Button from "~/components/Button";
 import Header from "~/components/Header";
 import { api } from "~/utils/api";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import Button from "~/components/Button";
 
 dayjs.extend(relativeTime);
 
