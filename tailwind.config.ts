@@ -39,7 +39,7 @@ export default {
       xl: ["1.75rem", { lineHeight: "1.214rem" }],
     },
     screens: {
-      tablet: "640px",
+      tablet: "768px",
       desktop: "1024px",
     },
     extend: {},
